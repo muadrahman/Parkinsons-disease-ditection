@@ -1,265 +1,111 @@
+# Parkinson's Disease Detection using Random Forest - Documentation
 
-# Required Libraries
-import pandas as pd
-import numpy as np
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-import seaborn as sns
-import matplotlib.pyplot as plt
+## Overview
 
+This project aims to detect Parkinson's disease using vocal features with a Random Forest classifier. The dataset contains various vocal attributes that are analyzed to classify individuals as healthy or having Parkinson's disease.
 
+## Table of Contents
 
-# Specify the file path
-file_path = r"D:\CV things\ML projects\parkinsons.data"
+1. [Dataset Description](#dataset-description)
+2. [Library Dependencies](#library-dependencies)
+3. [Steps](#steps)
+4. [Model Building](#model-building)
+5. [Hyperparameter Tuning](#hyperparameter-tuning)
+6. [Feature Importance](#feature-importance)
+7. [Evaluation](#evaluation)
+8. [Results](#results)
+9. [Technologies Used](#technologies-used)
+10. [Contact](#contact)
+11. [References](#references)
+12. [Project Link](#project-link)
 
-# Read the CSV file into a DataFrame
-df = pd.read_csv(file_path)
+## Dataset Description
 
-# Displaying the first five rows as an example
-df
+- **Source:** The dataset is from the UCI Machine Learning Repository.
+- **Structure:** The dataset contains 195 rows and 24 columns.
+  - **Features:** Various vocal features (e.g., `MDVP:Fo(Hz)`, `MDVP:Fhi(Hz)`, `MDVP:Flo(Hz)`)
+  - **Target Variable:** `status` (1 indicates Parkinson's disease, 0 indicates healthy)
 
+## Library Dependencies
 
+The project requires several Python libraries, including pandas, numpy, scikit-learn, seaborn, and matplotlib. These libraries are used for data manipulation, machine learning model building, and visualization.
 
+## Steps
 
+### 1. Load and Prepare Data
+1. Load the dataset from a CSV file.
+2. Remove the `name` column as it is not needed for the analysis.
+3. Define features (X) and target variable (Y).
+4. Split the data into training and testing sets.
 
-#Matrix column entries (attributes):
-#name - ASCII subject name and recording number
-#MDVP:Fo(Hz) - Average vocal fundamental frequency
-#MDVP:Fhi(Hz) - Maximum vocal fundamental frequency
-#MDVP:Flo(Hz) - Minimum vocal fundamental frequency
-#MDVP:Jitter(%),MDVP:Jitter(Abs),MDVP:RAP,MDVP:PPQ,Jitter:DDP - Several 
-#measures of variation in fundamental frequency
-#MDVP:Shimmer,MDVP:Shimmer(dB),Shimmer:APQ3,Shimmer:APQ5,MDVP:APQ,Shimmer:DDA - Several measures of variation in amplitude
-#NHR,HNR - Two measures of ratio of noise to tonal components in the voice
-#status - Health status of the subject (one) - Parkinson's, (zero) - healthy
-#RPDE,D2 - Two nonlinear dynamical complexity measures
-#DFA - Signal fractal scaling exponent
-#spread1,spread2,PPE - Three nonlinear measures of fundamental frequency variation
+### 2. Build Initial Model
+1. Train a Random Forest classifier on the training data.
+2. Evaluate the initial model's performance on the test data.
 
+### 3. Hyperparameter Tuning
+1. Use Grid Search to find the best hyperparameters for the Random Forest model.
+2. Train the model with the optimal hyperparameters.
+3. Evaluate the tuned model's performance.
 
+### 4. Feature Importance and Selection
+1. Determine the importance of each feature using the trained Random Forest model.
+2. Select the most important features.
+3. Retrain the Random Forest model using only the selected features.
+4. Evaluate the model with selected features.
 
+### 5. Final Evaluation and Results
+1. Compare the performance of the initial, tuned, and feature-selected models.
+2. Analyze and report the results.
 
+## Model Building
 
-# Drop 'name' column
-df.drop(['name'], axis=1, inplace=True)
+A Random Forest classifier is trained on the training data. This model is chosen for its robustness and ability to handle high-dimensional data.
 
-# Display DataFrame after dropping 'name' column
-df.head()
+## Hyperparameter Tuning
 
+Grid Search is used to find the best hyperparameters for the Random Forest model. This involves testing various combinations of parameters to find the optimal settings that improve model performance.
 
+## Feature Importance
 
+The importance of each feature is determined using the trained Random Forest model. The most important features are selected for further analysis to simplify the model and potentially improve its performance.
 
+## Evaluation
 
-# Visualize distribution of 'MDVP:Fo(Hz)'
-plt.figure(figsize=(6, 4))
-sns.histplot(df['MDVP:Fo(Hz)'], bins=20, kde=True)
-plt.title('Distribution of MDVP:Fo(Hz)')
-plt.xlabel('MDVP:Fo(Hz)')
-plt.ylabel('Frequency')
-plt.show()
+The model's performance is evaluated on the test data using several metrics, including accuracy, confusion matrix, and classification report. Both the tuned model and the model with selected features are evaluated to compare their performance.
 
+## Results
 
+- **Initial Model Accuracy:** The accuracy of the initial model before tuning is 84.6%.
+- **Accuracy After Tuning:** Hyperparameter tuning improves the accuracy to 87.2%.
+- **Accuracy After Feature Selection:** The accuracy improves to 92.3% after selecting the most important features.
+- **F1 Score for Healthy Individuals:** 80%
+- **F1 Score for Diagnosing Parkinson's Disease:** 95.2%
 
+Hyperparameter tuning and feature selection lead to a significant improvement in the model's performance, demonstrating the importance of these steps in the machine learning process.
 
-# Define X (features) and Y (target)
-X = df.drop('status', axis=1)
-Y = df['status']
+## Technologies Used
 
-# Split data into train and test sets
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=40)
+- Python
+- Scikit-learn
+- Pandas
+- NumPy
+- Seaborn
+- Matplotlib
 
+## Contact
 
+For inquiries or feedback, feel free to reach out:
+- [Gmail](mailto:mr.muadrahman@gmail.com)
+- [LinkedIn](https://www.linkedin.com/in/muadrahman/)
 
+## References
 
+- [Scikit-learn Documentation](https://scikit-learn.org/stable/)
+- [Pandas Documentation](https://pandas.pydata.org/)
+- [NumPy Documentation](https://numpy.org/)
+- [Seaborn Documentation](https://seaborn.pydata.org/)
+- [Matplotlib Documentation](https://matplotlib.org/)
 
-X.head()
+## Project Link
 
-
-
-
-
-Y.head()
-
-
-
-
-
-# Visualize distribution of target class (status)
-plt.figure(figsize=(6, 4))
-sns.countplot(x='status', data=df)
-plt.title('Distribution of Target Class (status)')
-plt.xlabel('Status')
-plt.ylabel('Count')
-plt.show()
-
-
-
-
-
-# Initialize and fit a Random Forest model
-RF = RandomForestClassifier(random_state=40)
-RF.fit(X_train, Y_train)
-
-# Predict on test data
-test_preds_rf = RF.predict(X_test)
-
-# Model evaluation after hyperparameter tuning
-print("Model accuracy on test data (Before Hyperparameter Tuning):", accuracy_score(Y_test, test_preds_rf))
-print("Confusion matrix:\n", confusion_matrix(Y_test, test_preds_rf))
-print("Classification Report:\n", classification_report(Y_test, test_preds_rf))
-
-
-
-
-
-# Hyperparameter Tuning
-param_grid = {
-    'n_estimators': [100, 200, 300],
-    'max_depth': [None, 5, 10, 15],
-    'min_samples_split': [2, 5, 10],
-    'min_samples_leaf': [1, 2, 4]
-}
-
-
-RF = RandomForestClassifier(random_state=40)
-grid_search = GridSearchCV(estimator=RF, param_grid=param_grid, cv=5, scoring='accuracy', n_jobs=-1)
-grid_search.fit(X_train, Y_train)
-
-
-
-
-
-# Get the best parameters
-best_params = grid_search.best_params_
-
-print("Best parameters found:", best_params)
-
-# Initialize and fit a Random Forest model with optimized hyperparameters
-best_RF = RandomForestClassifier(random_state=40, **best_params)
-best_RF.fit(X_train, Y_train)
-
-# Predict on test data
-test_preds_best_RF = best_RF.predict(X_test)
-
-
-
-
-
-# Perform cross-validation
-cv_scores = cross_val_score(best_RF, X, Y, cv=5)
-print("Cross-validation scores:", cv_scores)
-print("Mean CV accuracy:", cv_scores.mean())
-
-
-
-
-
-# Model evaluation after hyperparameter tuning
-print("Model accuracy on test data (After Hyperparameter Tuning):", accuracy_score(Y_test, test_preds_best_RF))
-print("Confusion matrix:\n", confusion_matrix(Y_test, test_preds_rf))
-print("Classification Report:\n", classification_report(Y_test, test_preds_rf))
-
-
-
-# Feature Importance
-feature_importances = best_RF.feature_importances_
-
-# Create DataFrame for feature importance
-feature_importance_df = pd.DataFrame({'Feature': X.columns, 'Importance': feature_importances})
-feature_importance_df = feature_importance_df.sort_values(by='Importance', ascending=False)
-
-
-
-
-
-# Update table after feature importance calculation
-print("\nTable after Feature Importance calculation:")
-feature_importance_df
-
-
-
-
-# Visualize feature importance
-plt.figure(figsize=(10, 6))
-sns.barplot(x='Importance', y='Feature', data=feature_importance_df)
-plt.title('Feature Importance')
-plt.xlabel('Importance Score')
-plt.ylabel('Features')
-plt.show()
-
-
-
-
-
-# Select top features based on importance scores (e.g., top 7 features)
-top_features = feature_importance_df['Feature'][:7].tolist()
-
-# Create new X with selected top features
-X_top_features = df[top_features]
-
-# Splitting data with the top selected features
-X_train_top, X_test_top, Y_train, Y_test = train_test_split(X_top_features, Y, test_size=0.2, random_state=40)
-
-
-
-
-
-# Create a new DataFrame for feature importance with the top 7 features
-top_features_df = feature_importance_df.head(7)
-
-# Visualize feature importance using bar plot
-plt.figure(figsize=(10, 6))
-sns.barplot(x='Importance', y='Feature', data=top_features_df, palette='viridis')
-plt.title('Top 7 Feature Importance')
-plt.xlabel('Importance Score')
-plt.ylabel('Features')
-plt.show()
-
-
-
-
-# Create a pivot table for the feature importance data
-pivot_df = top_features_df.pivot(index=None, columns='Feature', values='Importance').fillna(0)
-
-# Create the heatmap
-plt.figure(figsize=(10, 8))
-sns.heatmap(pivot_df, cmap='viridis', annot=True, fmt='.3f')
-plt.title('Feature Importance Heatmap')
-plt.show()
-
-
-
-# Initializing and fitting the Random Forest model with the selected features
-best_params = {'n_estimators': 200, 'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 2}
-best_RF_selected = RandomForestClassifier(random_state=40, **best_params)
-best_RF_selected.fit(X_train_top, Y_train)
-
-# Predict on test data with selected features
-test_preds_rf_selected = best_RF_selected.predict(X_test_top)
-
-
-
-
-#Model evaluation with selected features
-print("\nModel accuracy on test data (After Feature Selection):", accuracy_score(Y_test, test_preds_rf_selected))
-print("Confusion matrix:\n", confusion_matrix(Y_test, test_preds_rf_selected))
-print("Classification Report:\n", classification_report(Y_test, test_preds_rf_selected))
-
-
-
-acc_before_feature_selection = accuracy_score(Y_test, test_preds_rf)*100
-acc_after_feature_selection = accuracy_score(Y_test, test_preds_rf_selected)*100
-
-# Assuming acc_before_feature_selection and acc_after_feature_selection are accuracy scores
-accuracy_scores = [acc_before_feature_selection, acc_after_feature_selection]
-labels = ['Before Selection', 'After Selection']
-
-plt.figure(figsize=(6, 4))
-sns.barplot(x=labels, y=accuracy_scores)
-plt.title('Model Accuracy Before and After Feature Selection')
-plt.xlabel('Model')
-plt.ylabel('Accuracy')
-plt.ylim(0, 100)  # Set the y-axis limits to match accuracy values (0 to 100)
-plt.show()
-
+For further details and access to the project repository, visit [this link](https://github.com/muadrahman/Parkinsons-disease-ditection).
