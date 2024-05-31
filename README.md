@@ -1,4 +1,4 @@
-# Parkinson's Disease Detection using Random Forest - Documentation
+# Parkinson's Disease Detection using Random Forest
 
 ## Overview
 
