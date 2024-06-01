@@ -6,18 +6,23 @@ This project aims to detect Parkinson's disease using vocal features with a Rand
 
 ## Table of Contents
 
-1. [Dataset Description](#dataset-description)
-2. [Library Dependencies](#library-dependencies)
-3. [Steps](#steps)
-4. [Model Building](#model-building)
-5. [Hyperparameter Tuning](#hyperparameter-tuning)
-6. [Feature Importance](#feature-importance)
-7. [Evaluation](#evaluation)
-8. [Results](#results)
-9. [Technologies Used](#technologies-used)
-10. [Contact](#contact)
-11. [References](#references)
-12. [Project Link](#project-link)
+1. [Introduction](#introduction)
+2. [Dataset Description](#dataset-description)
+3. [Library Dependencies](#library-dependencies)
+4. [Steps](#steps)
+5. [Model Building](#model-building)
+6. [Hyperparameter Tuning](#hyperparameter-tuning)
+7. [Feature Importance and Selection](#feature-importance-and-selection)
+8. [Evaluation](#evaluation)
+9. [Results](#results)
+10. [Technologies Used](#technologies-used)
+11. [Contact](#contact)
+12. [References](#references)
+13. [Project Link](#project-link)
+
+## Introduction
+
+This project focuses on detecting Parkinson's disease using vocal features and a Random Forest classifier. By leveraging machine learning techniques, the goal is to accurately classify individuals based on their vocal attributes as either having Parkinson's disease or being healthy.
 
 ## Dataset Description
 
@@ -65,7 +70,7 @@ A Random Forest classifier is trained on the training data. This model is chosen
 
 Grid Search is used to find the best hyperparameters for the Random Forest model. This involves testing various combinations of parameters to find the optimal settings that improve model performance.
 
-## Feature Importance
+## Feature Importance and Selection
 
 The importance of each feature is determined using the trained Random Forest model. The most important features are selected for further analysis to simplify the model and potentially improve its performance.
 
@@ -75,11 +80,10 @@ The model's performance is evaluated on the test data using several metrics, inc
 
 ## Results
 
-- **Initial Model Accuracy:** The accuracy of the initial model before tuning is 84.6%.
-- **Accuracy After Tuning:** Hyperparameter tuning improves the accuracy to 87.2%.
-- **Accuracy After Feature Selection:** The accuracy improves to 92.3% after selecting the most important features.
-- **F1 Score for Healthy Individuals:** 80%
-- **F1 Score for Diagnosing Parkinson's Disease:** 95.2%
+- **Initial Model Accuracy:** The accuracy of the initial model before tuning is 84%.
+- **Accuracy After Tuning:** Hyperparameter tuning improves the accuracy to 87%.
+- **Accuracy After Feature Selection:** The accuracy improves to 92% after selecting the most important features.
+- **F1 Score for Diagnosing Parkinson's Disease:** 95%
 
 Hyperparameter tuning and feature selection lead to a significant improvement in the model's performance, demonstrating the importance of these steps in the machine learning process.
 
@@ -108,4 +112,4 @@ For inquiries or feedback, feel free to reach out:
 
 ## Project Link
 
-For further details and access to the project repository, visit [this link](https://github.com/muadrahman/Parkinsons-disease-ditection).
+For further details and access to the project repository, visit [this link](https://github.com/muadrahman/Parkinsons-disease-detection).
